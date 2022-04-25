@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS `Task13`.`manufacture` ;
 CREATE TABLE IF NOT EXISTS `Task13`.`manufacture` (
   `manufacture_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `adress` VARCHAR(45) NOT NULL,
+  `adrress` VARCHAR(45) NOT NULL,
   `certificate` INT NOT NULL,
   `specification` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`manufacture_id`))
