@@ -73,12 +73,6 @@ START TRANSACTION;
     INSERT room_in_booking (id_booking, id_room, checkin_date, checkout_date) VALUES ((SELECT MAX(booking.id_booking) FROM booking), 154, '2022-05-09', '2022-05-30');
 COMMIT;
 
-SELECT * FROM room_in_booking
-JOIN booking b on room_in_booking.id_booking = b.id_booking
-JOIN room r on r.id_room = room_in_booking.id_room
-JOIN client c on c.id_client = b.id_client
-WHERE r.id_room = 154;
-
 -- 9. Добавить необходимые индексы для всех таблиц
 ALTER TABLE room
     ADD INDEX room_id_hotel_idx (id_hotel),
