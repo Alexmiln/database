@@ -4,9 +4,7 @@ USE lw6;
 # ALTER TABLE `dealer`
 #     ADD CONSTRAINT `fk_dealer_company`
 #         FOREIGN KEY (`id_company`)
-#         REFERENCES `lw6`.`company` (`id_company`)
-#         ON DELETE CASCADE
-#         ON UPDATE CASCADE;
+#         REFERENCES `lw6`.`company` (`id_company`);
 #
 # ALTER TABLE `production`
 #     ADD CONSTRAINT `fk_production_medicine1`
@@ -16,9 +14,7 @@ USE lw6;
 #         ON UPDATE CASCADE,
 #     ADD CONSTRAINT `fk_production_company1`
 #         FOREIGN KEY (`id_company`)
-#         REFERENCES `lw6`.`company` (`id_company`)
-#         ON DELETE NO ACTION
-#         ON UPDATE NO ACTION;
+#         REFERENCES `lw6`.`company` (`id_company`);
 #
 # ALTER TABLE `order`
 #     ADD CONSTRAINT `fk_order_dealer1`
@@ -29,13 +25,9 @@ USE lw6;
 #     ADD CONSTRAINT `fk_order_pharmacy1`
 #         FOREIGN KEY (`id_pharmacy`)
 #         REFERENCES `lw6`.`pharmacy` (`id_pharmacy`)
-#         ON DELETE CASCADE
-#         ON UPDATE CASCADE,
 #     ADD CONSTRAINT `fk_order_production1`
 #         FOREIGN KEY (`id_production`)
-#         REFERENCES `lw6`.`production` (`id_production`)
-#         ON DELETE CASCADE
-#         ON UPDATE CASCADE;
+#         REFERENCES `lw6`.`production` (`id_production`);
 
 -- 2. Выдать информацию по всем заказам лекарства “Кордерон” компании “Аргус” с указанием названий аптек, дат, объема заказов.
 SELECT p.name, o.date, o.quantity FROM `order` o
@@ -72,4 +64,21 @@ UPDATE production p
 SET p.price = p.price * 0.8
 WHERE p.price > 3000 AND m.cure_duration <= 7;
 
--- 7. Добавить необходимые индексы. (create_database.sql)
+-- 7. Добавить необходимые индексы.
+CREATE INDEX `IX_dealer_id_company`
+    ON dealer (`id_company`);
+
+CREATE INDEX `IX_production_id_company-id_medicine`
+    ON production (id_company, id_medicine);
+
+CREATE INDEX `IX_order_id_production-id_pharmacy-id_dealer`
+    ON `order` (id_production, id_pharmacy, id_dealer);
+
+CREATE INDEX IX_production_price
+    ON production (price);
+
+CREATE INDEX IX_medicine_cure_duration
+    ON medicine (cure_duration);
+
+CREATE INDEX IX_order_date
+    ON `order` (date);
