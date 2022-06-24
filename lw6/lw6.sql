@@ -82,3 +82,9 @@ CREATE INDEX IX_medicine_cure_duration
 
 CREATE INDEX IX_order_date
     ON `order` (date);
+
+SELECT o.id_order FROM `order` o
+WHERE o.date > '2019-09-16';
+
+# 296ms без индекса
+# 152ms c индексом
